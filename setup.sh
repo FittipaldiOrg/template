@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
+set -e  # Stop script on error
+set -x  # Print each command before executing
 
 # Default values
 SERVICE_NAME=""
@@ -23,11 +25,12 @@ if [[ -z "$SERVICE_NAME" ]]; then
   exit 1
 fi
 
-# Replace {service_name} in README.md
-if [[ -f "README.md" ]]; then
-  sed -i "" "s/{service_name}/$SERVICE_NAME/g" README.md
-  echo "README.md updated successfully."
+echo "Service Name: $SERVICE_NAME"
+
+if [[ -f README.md ]]; then
+  echo "README.md exists. Running sed..."
+  sed -i "s/{service_name}/$SERVICE_NAME/g" README.md
 else
-  echo "Error: README.md not found"
+  echo "Error: README.md not found!"
   exit 1
 fi
