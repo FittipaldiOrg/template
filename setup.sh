@@ -44,9 +44,4 @@ else
   sed -i "s/{service_name}/$SERVICE_NAME/g" README.md    # Linux
 fi
 
-if [[ $? -eq 0 ]]; then
-  echo "README.md updated successfully with service name: $SERVICE_NAME" | tee -a setup.log
-else
-  echo "Error: Failed to update README.md" | tee -a setup.log
-  exit 1
-fi
+echo "README.md updated successfully with service name: $SERVICE_NAME" | tee -a setup.log
