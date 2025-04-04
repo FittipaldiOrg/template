@@ -38,7 +38,11 @@ if [[ ! -w "README.md" ]]; then
 fi
 
 # Replace {service_name} in README.md
-sed -i "" "s/{service_name}/$SERVICE_NAME/g" README.md
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  sed -i '' "s/{service_name}/$SERVICE_NAME/g" README.md  # macOS
+else
+  sed -i "s/{service_name}/$SERVICE_NAME/g" README.md    # Linux
+fi
 
 if [[ $? -eq 0 ]]; then
   echo "README.md updated successfully with service name: $SERVICE_NAME" | tee -a setup.log
