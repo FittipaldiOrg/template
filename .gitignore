@@ -1,0 +1,43 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# TypeScript build outputs
+dist/
+build/
+out/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Cache files
+.cache/
+.next/
+
+# React specific
+public/*.map
+
+# BFF gRPC generated files
+generated/
+
+# Temporal.io workflow cache
+temporal-cache/
+
+# Misc
+*.swp
+*.swo
+*.swn
