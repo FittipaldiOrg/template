@@ -13,7 +13,7 @@ while [[ "$#" -gt 0 ]]; do
       shift 2
       ;;
     *)
-      echo "Unknown parameter: $1"
+      echo "Unknown parameter: $1" | tee -a setup.log
       exit 1
       ;;
   esac
@@ -21,16 +21,28 @@ done
 
 # Check if service name was provided
 if [[ -z "$SERVICE_NAME" ]]; then
-  echo "Error: --service_name is required"
+  echo "Error: --service_name is required" | tee -a setup.log
   exit 1
 fi
 
-echo "Service Name: $SERVICE_NAME"
+# Check if README.md exists
+if [[ ! -f "README.md" ]]; then
+  echo "Error: README.md not found" | tee -a setup.log
+  exit 1
+fi
 
-if [[ -f README.md ]]; then
-  echo "README.md exists. Running sed..."
-  sed -i "s/{service_name}/$SERVICE_NAME/g" README.md
+# Ensure write permission on README.md
+if [[ ! -w "README.md" ]]; then
+  echo "Error: No write permission for README.md" | tee -a setup.log
+  exit 1
+fi
+
+# Replace {service_name} in README.md
+sed -i "" "s/{service_name}/$SERVICE_NAME/g" README.md
+
+if [[ $? -eq 0 ]]; then
+  echo "README.md updated successfully with service name: $SERVICE_NAME" | tee -a setup.log
 else
-  echo "Error: README.md not found!"
+  echo "Error: Failed to update README.md" | tee -a setup.log
   exit 1
 fi
